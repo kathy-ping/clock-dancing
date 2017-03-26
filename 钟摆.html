@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>时间一点一滴的流逝</title>
+</head>
+<body>
+<canvas width="800" height="600" style="border:1px solid red" id="canvas"></canvas>
+</body>
+<script>
+
+    var canvas = document.getElementById("canvas");
+    var ctx = canvas.getContext("2d");
+    var x = 200;
+    var mX = 300;
+    var x1 = 310;
+    var flan = false;
+    var a = true;
+    var b = false;
+    var c = false;
+    setInterval(function () {
+        if (a) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            line(mX);
+            //左边的斜边
+            line(x);
+            //右边的斜边
+            line(x1);
+            x += 1;
+        }
+        if (x >= 290 && a) {
+            flan = true;
+            a = false;
+        }
+        if (flan) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            line(mX);
+            //左边的斜边
+            line(x);
+            //右边的斜边
+            line(x1);
+            x1 += 1;
+        }
+        if (x1 >= 390 && flan) {
+            flan = false;
+            b = true;
+            x1 = 389;
+        }
+        if (b) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            line(mX);
+            //左边的斜边
+            line(x);
+            //右边的斜边
+            line(x1);
+            x1 -= 1;
+        }
+        if (x1 <= 310 && b) {
+            b = false;
+            c = true;
+        }
+        if (c) {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            line(mX);
+            //左边的斜边
+            line(x);
+            //右边的斜边
+            line(x1);
+            x -= 1;
+        }
+        if (x <= 200 && c) {
+            c = false;
+            a = true;
+        }
+    }, 5)
+
+    function line(lx) {
+        //画一个线
+        ctx.beginPath();
+        ctx.moveTo(300, 200);
+        ctx.lineTo(lx, 390);
+        ctx.stroke();
+        ctx.beginPath();
+        ctx.arc(lx, 390, 8, 0, 2 * Math.PI);
+        ctx.fill();
+    }
+
+</script>
+
+</html>
